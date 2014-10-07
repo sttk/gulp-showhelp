@@ -1,0 +1,35 @@
+{
+  "name": "gulp-showhelp",
+  "version": "0.0.0",
+  "description": "Gulp plugin to show a help message for your gulpfile.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp --gulpfile tests/test.js help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sttk/gulp-showhelp.git"
+  },
+  "keywords": [
+    "gulp",
+    "help",
+    "tasks",
+    "list",
+    "gulpfriendly"
+  ],
+  "author": "Takayuki Sato",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sttk/gulp-showhelp/issues"
+  },
+  "homepage": "https://github.com/sttk/gulp-showhelp",
+  "dependencies": {
+    "gulp-util": "^3.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8"
+  }
+}
