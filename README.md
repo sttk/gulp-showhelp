@@ -1,4 +1,4 @@
-# gulp-showhelp [![NPM version](http://img.shields.io/badge/npm-v1.0.0-blue.svg)](https://www.npmjs.org/package/gulp-showhelp) [![Build Status](https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master)](https://travis-ci.org/sttk/gulp-showhelp)
+# gulp-showhelp [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 Gulp plugin to show a help message for your gulpfile.js.
 
@@ -165,7 +165,7 @@ gulp.task('help', function() {
 }).help = 'shows this help message.'; 
 ```
 
-If specified a null or an empty string as a task name, an empty line is displayed.
+If a null or an empty string is specified as a task name, an empty line is displayed.
 
 ## APIs
 
@@ -197,3 +197,9 @@ Copyright (C) 2014 Takayuki Sato.
 
 gulp-showhelp is free software under [MIT](http://opensource.org/licenses/MIT) License.
 See the file LICENSE in this distribution for more details.
+
+
+[npm-image]: http://img.shields.io/badge/npm-v1.0.0-blue.svg
+[npm-url]: https://www.npmjs.org/package/gulp-showhelp
+[travis-image]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
+[travis-url]: https://travis-ci.org/sttk/gulp-showhelp
