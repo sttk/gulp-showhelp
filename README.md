@@ -1,4 +1,4 @@
-# gulp-showhelp [![NPM version][npm-image][npm-url]] [![Build Status][travis-image]][travis-url]
+# gulp-showhelp [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 Gulp plugin to show a help message for your gulpfile.js.
 
