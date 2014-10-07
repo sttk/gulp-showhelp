@@ -1,6 +1,6 @@
 {
   "name": "gulp-showhelp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Gulp plugin to show a help message for your gulpfile.js.",
   "main": "index.js",
   "scripts": {
