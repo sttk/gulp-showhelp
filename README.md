@@ -71,7 +71,7 @@ Tasks
 
 #### 2. Task with options
 
-If you want to show a description to a task with some options, add `help` property as an object to a task object.
+If you want to show a description for a task with some options, add `help` property as an object to a task object.
 A value of a propery of which a key is null or an empty string is treated as a task description.
 
 ```js
@@ -105,7 +105,7 @@ Tasks
 
 #### 3. Free description with a function
 
-If you want to show a description of free format to a task, add `help` property as a function to a task object.
+If you want to show a description of free format for a task, add `help` property as a function to a task object.
 You can use `show_task` function to show a task description and `show_option` function to show a option description.
 
 ```js
