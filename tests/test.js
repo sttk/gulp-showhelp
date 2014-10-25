@@ -14,6 +14,18 @@ gulp.task('help2', function() {
   ghelp.show('help2', '', 'all', null, 'mkdoc', 'compile', '', 'test');
 }).help = 'shows a help message about specified tasks.';
 
+gulp.task('help3', function() {
+  var task = ghelp.get_argv('task', 't', 'x');
+  if (task != null) {
+    ghelp.show(task);
+  } else {
+    ghelp.show();
+  }
+}).help = {
+  '': 'shows a help message about a task by a command argument.',
+  '[ --task=t ]': 'specifys a task shown. Alias -t.'
+};
+
 gulp.task('compile', function() {
   console.log('>>> compile');
 }).help = {

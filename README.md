@@ -45,7 +45,7 @@ There are three types to add.
 
 #### 1. Task only
 
-If you want to show a description to a task with no option, add `help` property as a string to a task object, e.g.:
+If you want to show a description about a task with no option, add `help` property as a string to a task object, e.g.:
 
 ```js
 gulp.task('lint', function() {
@@ -71,8 +71,8 @@ Tasks
 
 #### 2. Task with options
 
-If you want to show a description for a task with some options, add `help` property as an object to a task object.
-A value of a propery of which a key is null or an empty string is treated as a task description.
+If you want to show a description about a task with some options, add `help` property as an object to a task object.
+A value of a propery of which a key is an empty string is treated as a task description.
 
 ```js
 gulp.task('compile', function() {
@@ -103,9 +103,9 @@ Tasks
 [gulp] Finished 'help' after 753 μs
 ```
 
-#### 3. Free description with a function
+#### 3. Free description using a function
 
-If you want to show a description of free format for a task, add `help` property as a function to a task object.
+If you want to show a free format description about a task, add `help` property as a function to a task object.
 You can use `show_task` function to show a task description and `show_option` function to show a option description.
 
 ```js
@@ -167,6 +167,24 @@ gulp.task('help', function() {
 
 If a null or an empty string is specified as a task name, an empty line is displayed.
 
+### Select a task via a command-line argument. 
+
+If you want to be able to show a task via a command-line argument, `get_argv` function is useful. Write as follows:
+
+```js
+gulp.task('help', function() {
+  var task = ghelp.get_argv('task', 't');
+  if (task != null) {
+    ghelp.show(task);
+  } else {
+    ghelp.show();
+  }
+}).help = {
+  '': 'shows this help message.',
+  '[ --task=t ]': 'specifys a task shown. Alias: -t.' 
+};
+```
+
 ## APIs
 
 `gulp-showhelp` module provides following functions:
@@ -191,6 +209,13 @@ Shows a option description using a help message.
 - **optionname** `{string}` - an option name.
 - **optiondesc** `{string}` - an option explanation.
 
+### get_argv(optionname [, optionalias, ...])
+
+Gets a option value corresponding to the specified option name or alias.
+
+- **optionname** `{string}` - an option name.
+- **optionalias** `{string}` - an option alias.
+
 ## License
 
 Copyright (C) 2014 Takayuki Sato.
@@ -199,7 +224,7 @@ gulp-showhelp is free software under [MIT](http://opensource.org/licenses/MIT) L
 See the file LICENSE in this distribution for more details.
 
 
-[npm-image]: http://img.shields.io/badge/npm-v1.0.0-blue.svg
+[npm-image]: http://img.shields.io/badge/npm-v1.0.1-blue.svg
 [npm-url]: https://www.npmjs.org/package/gulp-showhelp
 [travis-image]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
 [travis-url]: https://travis-ci.org/sttk/gulp-showhelp
