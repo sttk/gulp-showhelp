@@ -169,7 +169,7 @@ If a null or an empty string is specified as a task name, an empty line is displ
 
 ### Select a task via a command-line argument. 
 
-If you want to be able to show a task via a command-line argument, `get_argv` function is useful. Write as follows:
+If you want to be able to select a task via a command-line argument, `get_argv` function is useful. Write as follows:
 
 ```js
 gulp.task('help', function() {
@@ -224,7 +224,7 @@ gulp-showhelp is free software under [MIT](http://opensource.org/licenses/MIT) L
 See the file LICENSE in this distribution for more details.
 
 
-[npm-image]: http://img.shields.io/badge/npm-v1.0.1-blue.svg
+[npm-image]: http://img.shields.io/badge/npm-v1.0.2-blue.svg
 [npm-url]: https://www.npmjs.org/package/gulp-showhelp
 [travis-image]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
 [travis-url]: https://travis-ci.org/sttk/gulp-showhelp

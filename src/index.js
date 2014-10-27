@@ -67,6 +67,7 @@
     }
 
     function _calc_tab_size(tasknames) {
+      var tabSize = 0;
       for (var i=0; i<tasknames.length; i++) {
         var name = tasknames[i];
         if (name == null) { continue; }
@@ -75,8 +76,9 @@
         if (task == null) { continue; }
         if (typeof(task.help) == 'undefined') { continue; }
 
-        return Math.max(_tabSize, name.length);
+        tabSize = Math.max(tabSize, name.length);
       }
+      return tabSize;
     }
 
     function _write_task_list(tasknames) {
