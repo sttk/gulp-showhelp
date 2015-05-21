@@ -15,4 +15,7 @@ script:
   - gulp --gulpfile tests/test1.js help -t task___3
   - gulp --gulpfile tests/test1.js help --t=task4
   - gulp --gulpfile tests/test1.js help --task=taskX
+  - gulp --gulpfile tests/test_old.js help
+  - gulp --gulpfile tests/test_old.js help2
+  - gulp --gulpfile tests/test_old.js help3 --task=compile
 

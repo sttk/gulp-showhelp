@@ -7,7 +7,7 @@ var jshint = require('gulp-jshint');
 var ghelp = require('./index.js');
 
 gulp.task('help', function() {
-  var task = ghelp.get_argv('task', 't');
+  var task = ghelp.getArgv('task', 't');
   if (task != null) {
     ghelp.show(task);
   } else {

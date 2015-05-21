@@ -15,7 +15,7 @@ gulp.task('help2', function() {
 }).help = 'shows a help message about specified tasks.';
 
 gulp.task('help3', function() {
-  var task = ghelp.getArgv('task', 't', 'x');
+  var task = ghelp.get_argv('task', 't', 'x');
   if (task != null) {
     ghelp.show(task);
   } else {
@@ -41,8 +41,8 @@ gulp.task('mkdoc', function() {
 gulp.task('test', function(){
   console.log('>>> test');
 }).help = function() {
-  ghelp.showTask('test', 'tests modules.');
-  ghelp.showOption('--case=(case ID)', 'specifys a test case ID.');
+  ghelp.show_task('test', 'tests modules.');
+  ghelp.show_option('--case=(case ID)', 'specifys a test case ID.');
   var text = '\n' +
     '    Test case IDs:\n' +
     '        ID  :        description\n' +

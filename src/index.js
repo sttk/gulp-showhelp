@@ -15,6 +15,11 @@
 
   module.exports = new function() {
     this.show = _show;
+    this.showTask = _show_task;
+    this.showOption = _show_option;
+    this.getArgv = _get_argv;
+
+    // leave old APIs for compatibility
     this.show_task = _show_task;
     this.show_option = _show_option;
     this.get_argv = _get_argv;

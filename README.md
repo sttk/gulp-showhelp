@@ -106,14 +106,14 @@ Tasks
 #### 3. Free description using a function
 
 If you want to show a free format description about a task, add `help` property as a function to a task object.
-You can use `show_task` function to show a task description and `show_option` function to show a option description.
+You can use `showTask` function to show a task description and `showOption` function to show a option description.
 
 ```js
 gulp.task('test', function(){
   ...
 }).help = function() {
-  ghelp.show_task('test', 'tests modules.');
-  ghelp.show_option('--case=id', 'specifys a test case ID.');
+  ghelp.showTask('test', 'tests modules.');
+  ghelp.showOption('--case=id', 'specifys a test case ID.');
   var text = '\n' +
     '    Test case IDs:\n' +
     '        ID  :        description\n' +
@@ -169,11 +169,11 @@ If a null or an empty string is specified as a task name, an empty line is displ
 
 ### Select a task via a command-line argument. 
 
-If you want to be able to select a task via a command-line argument, `get_argv` function is useful. Write as follows:
+If you want to be able to select a task via a command-line argument, `getArgv` function is useful. Write as follows:
 
 ```js
 gulp.task('help', function() {
-  var task = ghelp.get_argv('task', 't');
+  var task = ghelp.getArgv('task', 't');
   if (task != null) {
     ghelp.show(task);
   } else {
@@ -187,6 +187,9 @@ gulp.task('help', function() {
 
 ## APIs
 
+> API names are changed to camel case according to JavaScript coding conventions.
+> So the functions `show_task`, `show_option`, `get_argv` are deprecated, but they are left for compatibility.
+
 `gulp-showhelp` module provides following functions:
 
 ### show([ taskname, ... ])
@@ -195,21 +198,21 @@ Shows a help message about own gulpfile.js.
 
 - **taskname** `{string|null}` - a task name. If null or empty, displays an empty line.
 
-### show_task(taskname, taskdesc)
+### showTask(taskname, taskdesc)
 
 Shows a task description using a help message.
 
 - **taskname** `{string}` - a task name.
 - **taskdesc** `{string}` - a task explanation.
 
-### show_option(optionname, optiondesc)
+### showOption(optionname, optiondesc)
 
 Shows a option description using a help message.
 
 - **optionname** `{string}` - an option name.
 - **optiondesc** `{string}` - an option explanation.
 
-### get_argv(optionname [, optionalias, ...])
+### getArgv(optionname [, optionalias, ...])
 
 Gets a option value corresponding to the specified option name or alias.
 

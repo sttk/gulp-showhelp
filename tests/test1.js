@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var ghelp = require('../index.js');
 
 gulp.task('help', function() {
-  var task = ghelp.get_argv('task', 't', 'x');
+  var task = ghelp.getArgv('task', 't', 'x');
   if (task != null) {
     ghelp.show(task);
   } else {
@@ -31,13 +31,13 @@ gulp.task('task__2', function() {
 
 gulp.task('task___3', function() {
 }).help = function() {
-  ghelp.show_task('task___3', 'task 3.');
+  ghelp.showTask('task___3', 'task 3.');
 };
 
 gulp.task('task4', function() {
 }).help = function() {
   console.log('--task4--');
-  ghelp.show_option('-o', 'an option.');
+  ghelp.showOption('-o', 'an option.');
 };
 
 gulp.task('task5', function() {
