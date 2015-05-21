@@ -18,6 +18,7 @@
     this.showTask = _show_task;
     this.showOption = _show_option;
     this.getArgv = _get_argv;
+    this.taskNames = _task_names;
 
     // leave old APIs for compatibility
     this.show_task = _show_task;
@@ -29,9 +30,14 @@
     var _hasOption = false;
 
     function _show(taskname /* ... */) {
-      var args = (arguments.length > 0) ?
-        Array.prototype.slice.call(arguments) :
-        Object.getOwnPropertyNames(gulp.tasks);
+      var args;
+      if (arguments.length == 1 && Array.isArray(arguments[0])) {
+        args = arguments[0];
+      } else if (arguments.length > 0) {
+        args = Array.prototype.slice.call(arguments);
+      } else {
+        args = Object.getOwnPropertyNames(gulp.tasks);
+      }
 
       _tabSize = _calc_tab_size(args);
 
@@ -118,6 +124,10 @@
         if (opts[i] in argv) { return argv[opts[i]]; }
       }
       return null;
+    }
+
+    function _task_names() {
+      return Object.getOwnPropertyNames(gulp.tasks);
     }
   };
 

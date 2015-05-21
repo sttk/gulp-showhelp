@@ -194,9 +194,15 @@ gulp.task('help', function() {
 
 ### show([ taskname, ... ])
 
-Shows a help message about own gulpfile.js.
+Shows a help message about all tasks or specified tasks in gulpfile.js.
 
 - **taskname** `{string|null}` - a task name. If null or empty, displays an empty line.
+
+### show(tasknames)
+
+Shows a help message about tasks specified by an array in gulpfile.js.
+
+- **tasknames** `{string[]}` - an array which contains task names.
 
 ### showTask(taskname, taskdesc)
 
@@ -218,6 +224,10 @@ Gets a option value corresponding to the specified option name or alias.
 
 - **optionname** `{string}` - an option name.
 - **optionalias** `{string}` - an option alias.
+
+### taskNames()
+
+Gets an array which contains all task names.
 
 ## License
 

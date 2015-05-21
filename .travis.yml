@@ -8,6 +8,7 @@ script:
   - gulp --gulpfile tests/test.js help
   - gulp --gulpfile tests/test.js help2
   - gulp --gulpfile tests/test.js help3 --task=compile
+  - gulp --gulpfile tests/test.js help4
   - gulp --gulpfile tests/test1.js help
   - gulp --gulpfile tests/test1.js help --task=task0
   - gulp --gulpfile tests/test1.js help --task task_1

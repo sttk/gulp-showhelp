@@ -26,6 +26,10 @@ gulp.task('help3', function() {
   '[ --task=t ]': 'specifys a task shown. Alias -t.'
 };
 
+gulp.task('help4', function() {
+  ghelp.show(ghelp.taskNames().sort());
+}).help = 'shows a help message which sorts task names.';
+
 gulp.task('compile', function() {
   console.log('>>> compile');
 }).help = {
