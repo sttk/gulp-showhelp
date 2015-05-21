@@ -41,7 +41,7 @@ Tasks
 Next, add a description to each tasks.
 There are three types to add.
 
-### Adds a task description
+### Add a task description
 
 #### 1. Task only
 
@@ -155,7 +155,7 @@ Tasks
 [gulp] Finished 'help' after 934 μs
 ```
 
-### Selects and order tasks
+### Select and order tasks
 
 You can select and order tasks of which you want to show a description by specifying task names in order.
 
@@ -189,7 +189,7 @@ gulp.task('help', function() {
 
 `gulp-showhelp` module provides following functions:
 
-### show([ taskname, ... ])]
+### show([ taskname, ... ])
 
 Shows a help message about own gulpfile.js.
 
