@@ -231,13 +231,13 @@ Gets an array which contains all task names.
 
 ## License
 
-Copyright (C) 2014 Takayuki Sato.
+Copyright (C) 2014-2015 Takayuki Sato.
 
 gulp-showhelp is free software under [MIT](http://opensource.org/licenses/MIT) License.
 See the file LICENSE in this distribution for more details.
 
 
-[npm-image]: http://img.shields.io/badge/npm-v1.0.2-blue.svg
+[npm-image]: http://img.shields.io/badge/npm-v1.0.3-blue.svg
 [npm-url]: https://www.npmjs.org/package/gulp-showhelp
 [travis-image]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
 [travis-url]: https://travis-ci.org/sttk/gulp-showhelp
