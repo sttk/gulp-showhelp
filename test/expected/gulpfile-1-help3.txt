@@ -1,0 +1,28 @@
+Starting 'help3'...
+
+Usage
+  gulp task [ option ... ]
+
+Tasks
+  all     : processes all tasks.
+  help    : shows a standard help message.
+  help2   : shows a help message about specified tasks.
+  help3   : shows a help message about a task by a command argument.
+    [ --task=t ] : specifys a task shown. Alias -t.
+  help4   : shows a help message which sorts task names.
+  compile : compiles source files.
+    --srcs=(path pattern) : specifys a path pattern of source files.
+    --dest=(file path) : specifys a file path.
+  mkdoc   : make documents.
+  test    : tests modules.
+    --case=(case ID) : specifys a test case ID.
+
+    Test case IDs:
+        ID  :        description
+      ------:-------------------------------------
+      case1 : .... 
+      case2 : .... 
+      case3 : .... 
+
+
+Finished 'help3' after ?

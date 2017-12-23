@@ -1,1 +1,133 @@
-!function(){"use strict";var n=require("gulp"),r=require("gulp-util"),o=require("yargs").argv,t=n.task;n.task=function(){t.apply(n,arguments);var r=arguments[0];return n.tasks[r]},module.exports=new function(){function t(){var r;r=1==arguments.length&&Array.isArray(arguments[0])?arguments[0]:arguments.length>0?Array.prototype.slice.call(arguments):Object.getOwnPropertyNames(n.tasks),h=a(r),f=!1;var o="",t=console.log;console.log=function(n){o+=(null!=n?n:"")+"\n"},u(r),o=c()+o,console.log=t,console.log(o)}function e(n,r){var o=r[""];s(n,o);for(var t in r)""!==t&&l(t,r[t])}function s(n,o){null==o&&(o="");for(var t="",e=n.length;h>e;e++)t+=" ";console.log("  "+r.colors.cyan(n)+t+" : "+o)}function l(n,o){null==o&&(o="");var t="";console.log("    "+r.colors.green(n)+t+" : "+o),f=!0}function a(r){for(var o=0,t=0;t<r.length;t++){var e=r[t];if(null!=e){var s=n.tasks[e];null!=s&&"undefined"!=typeof s.help&&(o=Math.max(o,e.length))}}return o}function u(o){console.log(r.colors.bold("Tasks"));for(var t=0;t<o.length;t++){var l=o[t];if(null!=l&&""!==l){var a=n.tasks[l];if(null!=a)switch(typeof a.help){case"function":a.help();break;case"object":e(l,a.help,h);break;case"string":s(l,a.help,h)}}else console.log()}}function c(){var n="\n"+r.colors.bold("Usage")+"\n";return n+="  gulp "+r.colors.cyan("task"),f&&(n+=" [ "+r.colors.green("option ...")+" ]"),n+="\n\n"}function i(){for(var n=Array.prototype.slice.call(arguments),r=0;r<n.length;r++)if(n[r]in o)return o[n[r]];return null}function g(){return Object.getOwnPropertyNames(n.tasks)}this.show=t,this.showTask=s,this.showOption=l,this.getArgv=i,this.taskNames=g,this.show_task=s,this.show_option=l,this.get_argv=i;var h=0,f=!1}}();
+(function(){
+  'use strict';
+
+  var gulp = require('gulp');
+  var gutil = require('gulp-util');
+  var argv = require('yargs').argv;
+
+  var originalTaskFn = gulp.task;
+  gulp.task = function() {
+    originalTaskFn.apply(gulp, arguments);
+    var name = arguments[0];
+    return gulp.tasks[name];
+  };
+
+  module.exports = new function() {
+    this.show = _show;
+    this.showTask = _show_task;
+    this.showOption = _show_option;
+    this.getArgv = _get_argv;
+    this.taskNames = _task_names;
+
+    // leave old APIs for compatibility
+    this.show_task = _show_task;
+    this.show_option = _show_option;
+    this.get_argv = _get_argv;
+
+    var _indentSize = 2;
+    var _tabSize = 0;
+    var _hasOption = false;
+
+    function _show(taskname /* ... */) {
+      var args;
+      if (arguments.length == 1 && Array.isArray(arguments[0])) {
+        args = arguments[0];
+      } else if (arguments.length > 0) {
+        args = Array.prototype.slice.call(arguments);
+      } else {
+        args = Object.getOwnPropertyNames(gulp.tasks);
+      }
+
+      _tabSize = _calc_tab_size(args);
+
+      _hasOption = false;
+      var _buf = '';
+      var _console_log_bk = console.log;
+      console.log = function(s) { _buf += (s != null ? s : '') + '\n'; }; 
+
+      _write_task_list(args);
+      _buf = _get_usage() + _buf;
+
+      console.log = _console_log_bk;
+      console.log(_buf);
+    }
+
+    function _show_map(name, map) {
+      var desc = map[''];
+      _show_task(name, desc);
+
+      for (var option in map) {
+        if (option === '') { continue; }
+        _show_option(option, map[option]);
+      }
+    }
+
+    function _show_task(name, desc) {
+      if (desc == null) { desc = ''; }
+      var tab = '';
+      for (var i=name.length; i<_tabSize; i++) { tab += ' '; }
+      console.log('  ' + gutil.colors.cyan(name) + tab + ' : ' + desc);
+    }
+
+    function _show_option(name, desc) {
+      if (desc == null) { desc = ''; }
+      var tab = '';
+      console.log('    ' + gutil.colors.green(name) + tab + ' : ' + desc);
+      _hasOption = true;
+    }
+
+    function _calc_tab_size(tasknames) {
+      var tabSize = 0;
+      for (var i=0; i<tasknames.length; i++) {
+        var name = tasknames[i];
+        if (name == null) { continue; }
+
+        var task = gulp.tasks[name];
+        if (task == null) { continue; }
+        if (typeof(task.help) == 'undefined') { continue; }
+
+        tabSize = Math.max(tabSize, name.length);
+      }
+      return tabSize;
+    }
+
+    function _write_task_list(tasknames) {
+      console.log(gutil.colors.bold('Tasks'));
+
+      for (var i=0; i<tasknames.length; i++) {
+        var name = tasknames[i];
+        if (name == null || name === '') { console.log(); continue; }
+        var task = gulp.tasks[name];
+        if (task == null) continue;
+        switch (typeof(task.help)) {
+        case 'function': task.help(); break;
+        case 'object': _show_map(name, task.help, _tabSize); break;
+        case 'string': _show_task(name, task.help, _tabSize); break;
+        }
+      }
+    }
+
+    function _get_usage() {
+      var str = '\n' + gutil.colors.bold('Usage') + '\n';
+      str += '  gulp ' + gutil.colors.cyan('task');
+      if (_hasOption) {
+        str += ' [ ' + gutil.colors.green('option ...') + ' ]';
+      }
+      str += '\n\n';
+      return str;
+    }
+
+    function _get_argv(opt /* ... */) {
+      var opts = Array.prototype.slice.call(arguments);
+      for (var i=0; i<opts.length; i++) {
+        if (opts[i] in argv) { return argv[opts[i]]; }
+      }
+      return null;
+    }
+
+    function _task_names() {
+      return Object.getOwnPropertyNames(gulp.tasks);
+    }
+  };
+
+}());

@@ -1,0 +1,8 @@
+Starting 'help3'...
+
+Usage
+  gulp task
+
+Tasks
+
+Finished 'help3' after ?

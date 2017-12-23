@@ -1,24 +1,20 @@
+sudo: false
+
 language: node_js
 
 node_js:
   - "0.10"
   - "0.11"
   - "0.12"
-  - "iojs"
+  - "4"
+  - "5"
+  - "6"
+  - "7"
+  - "8"
+  - "9"
 
-script:
-  - gulp --gulpfile tests/test.js help
-  - gulp --gulpfile tests/test.js help2
-  - gulp --gulpfile tests/test.js help3 --task=compile
-  - gulp --gulpfile tests/test.js help4
-  - gulp --gulpfile tests/test1.js help
-  - gulp --gulpfile tests/test1.js help --task=task0
-  - gulp --gulpfile tests/test1.js help --task task_1
-  - gulp --gulpfile tests/test1.js help -t=task__2
-  - gulp --gulpfile tests/test1.js help -t task___3
-  - gulp --gulpfile tests/test1.js help --t=task4
-  - gulp --gulpfile tests/test1.js help --task=taskX
-  - gulp --gulpfile tests/test_old.js help
-  - gulp --gulpfile tests/test_old.js help2
-  - gulp --gulpfile tests/test_old.js help3 --task=compile
+after_success: 'npm run coveralls'
 
+os:
+  - linux
+  - osx

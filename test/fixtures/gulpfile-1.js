@@ -1,9 +1,9 @@
 'use strict';
 
 var gulp = require('gulp');
-var ghelp = require('../index.js');
+var ghelp = require('../../');
 
-gulp.task('all', [ 'compile', 'test' ])
+gulp.task('all', ['compile', 'test'])
   .help = 'processes all tasks.';
 
 gulp.task('help', function() {
@@ -58,4 +58,4 @@ gulp.task('test', function(){
   console.log(text);
 };
 
-gulp.task('default', [ 'all' ]);
+gulp.task('default', ['all']);
