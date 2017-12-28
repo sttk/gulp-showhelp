@@ -2,7 +2,7 @@
   'use strict';
 
   var gulp = require('gulp');
-  var gutil = require('gulp-util');
+  var chalk = require('chalk');
   var argv = require('yargs').argv;
 
   var originalTaskFn = gulp.task;
@@ -66,13 +66,13 @@
       if (desc == null) { desc = ''; }
       var tab = '';
       for (var i=name.length; i<_tabSize; i++) { tab += ' '; }
-      console.log('  ' + gutil.colors.cyan(name) + tab + ' : ' + desc);
+      console.log('  ' + chalk.cyan(name) + tab + ' : ' + desc);
     }
 
     function _show_option(name, desc) {
       if (desc == null) { desc = ''; }
       var tab = '';
-      console.log('    ' + gutil.colors.green(name) + tab + ' : ' + desc);
+      console.log('    ' + chalk.green(name) + tab + ' : ' + desc);
       _hasOption = true;
     }
 
@@ -92,7 +92,7 @@
     }
 
     function _write_task_list(tasknames) {
-      console.log(gutil.colors.bold('Tasks'));
+      console.log(chalk.bold('Tasks'));
 
       for (var i=0; i<tasknames.length; i++) {
         var name = tasknames[i];
@@ -108,10 +108,10 @@
     }
 
     function _get_usage() {
-      var str = '\n' + gutil.colors.bold('Usage') + '\n';
-      str += '  gulp ' + gutil.colors.cyan('task');
+      var str = '\n' + chalk.bold('Usage') + '\n';
+      str += '  gulp ' + chalk.cyan('task');
       if (_hasOption) {
-        str += ' [ ' + gutil.colors.green('option ...') + ' ]';
+        str += ' [ ' + chalk.green('option ...') + ' ]';
       }
       str += '\n\n';
       return str;
