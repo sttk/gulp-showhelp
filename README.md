@@ -1,6 +1,7 @@
-# gulp-showhelp [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+# [gulp-showhelp][repo-url] [![NPM version][npm-img]][npm-url] [![MIT License][mit-img]][mit-url] [![Build Status][travis-img]][travis-url] [![Build Status][appveyor-img]][appveyor-url] [![Coverage Status][coverage-img]][coverage-url]
 
 Gulp plugin to show a help message for your gulpfile.js.
+
 
 ## Install
 
@@ -190,54 +191,83 @@ gulp.task('help', function() {
 > API names are changed to camel case according to JavaScript coding conventions.
 > So the functions `show_task`, `show_option`, `get_argv` are deprecated, but they are left for compatibility.
 
-`gulp-showhelp` module provides following functions:
+`gulp-showhelp` provides the following functions:
 
-### show([ taskname, ... ])
+### <u>.show([ ...taskname ]) : Void</u>
 
 Shows a help message about all tasks or specified tasks in gulpfile.js.
 
-- **taskname** `{string|null}` - a task name. If null or empty, displays an empty line.
+#### Parameters:
 
-### show(tasknames)
+| Parameter   |  Type  | Description                                             |
+|:------------|:------:|:--------------------------------------------------------|
+| *taskname*  | string | A task name. If null or empty, displays an empty line.  |
+
+### <u>.show(tasknames) : Void</u>
 
 Shows a help message about tasks specified by an array in gulpfile.js.
 
-- **tasknames** `{string[]}` - an array which contains task names.
+#### Parameters:
 
-### showTask(taskname, taskdesc)
+| Parameter   |  Type    | Description                                           |
+|:------------|:--------:|:------------------------------------------------------|
+| *tasknames* | Array    | An array which contains task names.                   |
+
+### <u>.showTask(taskname, taskdesc) : Void</u>
 
 Shows a task description using a help message.
 
-- **taskname** `{string}` - a task name.
-- **taskdesc** `{string}` - a task explanation.
+| Parameter   |  Type  | Description                                             |
+|:------------|:------:|:--------------------------------------------------------|
+| *taskname*  | string | A task name.                                            |
+| *taskdesc*  | string | A task explanation.                                     |
 
-### showOption(optionname, optiondesc)
+### <u>.showOption(optionname, optiondesc) : Void</u>
 
 Shows a option description using a help message.
 
-- **optionname** `{string}` - an option name.
-- **optiondesc** `{string}` - an option explanation.
+| Parameter    |  Type  | Description                                            |
+|:-------------|:------:|:-------------------------------------------------------|
+| *optionname* | string | An option name.                                        |
+| *optiondesc* | string | An option explanation.                                 |
 
-### getArgv(optionname [, optionalias, ...])
+### <u>.getArgv(optionname [, optionalias, ...]) : Void</u>
 
 Gets a option value corresponding to the specified option name or alias.
 
-- **optionname** `{string}` - an option name.
-- **optionalias** `{string}` - an option alias.
+| Parameter     |  Type  | Description                                           |
+|:--------------|:------:|:------------------------------------------------------|
+| *optionname*  | string | An option name.                                       |
+| *optionalias* | string | An option alias.                                      |
 
-### taskNames()
+### <u>.taskNames() : Array</u>
 
 Gets an array which contains all task names.
 
+#### Returns:
+
+An array of task names.
+
+**Type:** Array
+
+
 ## License
 
-Copyright (C) 2014-2015 Takayuki Sato.
+Copyright (C) 2014-2017 Takayuki Sato.
 
-gulp-showhelp is free software under [MIT](http://opensource.org/licenses/MIT) License.
+This program is free software under [MIT][mit-url] License.
 See the file LICENSE in this distribution for more details.
 
 
-[npm-image]: http://img.shields.io/badge/npm-v1.0.3-blue.svg
-[npm-url]: https://www.npmjs.org/package/gulp-showhelp
-[travis-image]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
+[repo-url]: https://github.com/sttk/gulp-showhelp/
+[npm-img]: https://img.shields.io/badge/npm-v1.0.3-blue.svg
+[npm-url]: https://www.npmjs.org/package/gulp-showhelp/
+[mit-img]: https://img.shields.io/badge/license-MIT-green.svg
+[mit-url]: https://opensource.org/licenses.MIT
+[travis-img]: https://travis-ci.org/sttk/gulp-showhelp.svg?branch=master
 [travis-url]: https://travis-ci.org/sttk/gulp-showhelp
+[appveyor-img]: https://ci.appveyor.com/api/projects/status/github/sttk/gulp-showhelp?branch=master&svg=true
+[appveyor-url]: https://ci.appveyor.com/project/sttk/gulp-showhelp
+[coverage-img]: https://coveralls.io/repos/github/sttk/gulp-showhelp/badge.svg
+[coverage-url]: https://coveralls.io/github/sttk/gulp-showhelp?branch=master
+
