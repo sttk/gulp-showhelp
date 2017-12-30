@@ -148,7 +148,7 @@ describe('gulp-showhelp', function() {
     });
   });
 
-  describe('showOption', function() {
+  describe('.showOption', function() {
     it('Should print an empty description when setted to nullish',
     function(done) {
       runner({ verbose: false })
@@ -159,6 +159,47 @@ describe('gulp-showhelp', function() {
       function cb(err, stdout, stderr) {
         expect(err).to.equal(null);
         expect(stderr).to.equal('');
+        stdout = skipLines(stdout, 1);
+        stdout = eraseTime(stdout);
+        stdout = eraseLapse(stdout);
+        expect(stdout).to.equal(expected('gulpfile-2-help2.txt'));
+        done(err);
+      }
+    });
+  });
+
+  describe('.show_task (deprecated)', function() {
+    it('Should print an error message of deprecation warning', function(done) {
+      runner({ verbose: false })
+        .chdir(__dirname, 'fixtures')
+        .gulp('--gulpfile', 'gulpfile-3.js', 'help1')
+        .run(cb);
+
+      function cb(err, stdout, stderr) {
+        expect(err).to.equal(null);
+        expect(stderr.replace(/\(node:[0-9]+\) /g, '')).to.equal(
+          'DeprecationWarning: show_task() is deprecated.\n');
+        stdout = skipLines(stdout, 1);
+        stdout = eraseTime(stdout);
+        stdout = eraseLapse(stdout);
+        expect(stdout).to.equal(expected('gulpfile-2-help1.txt'));
+        done(err);
+      }
+    });
+  });
+
+  describe('.show_option (deprecated)', function() {
+    it('Should print an error message of deprecation warning', function(done) {
+      runner({ verbose: false })
+        .chdir(__dirname, 'fixtures')
+        .gulp('--gulpfile', 'gulpfile-3.js', 'help2')
+        .run(cb);
+
+      function cb(err, stdout, stderr) {
+        expect(err).to.equal(null);
+        expect(stderr.replace(/\(node:[0-9]+\) /g, '')).to.equal(
+          'DeprecationWarning: show_task() is deprecated.\n' +
+          'DeprecationWarning: show_option() is deprecated.\n');
         stdout = skipLines(stdout, 1);
         stdout = eraseTime(stdout);
         stdout = eraseLapse(stdout);

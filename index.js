@@ -1,133 +1,199 @@
-(function(){
-  'use strict';
+'use strict';
 
-  var gulp = require('gulp');
-  var chalk = require('chalk');
-  var argv = require('yargs').argv;
+var gulp = require('gulp');
+var chalk = require('chalk');
+var argv = require('yargs').argv;
+var util = require('util');
 
-  var originalTaskFn = gulp.task;
-  gulp.task = function() {
-    originalTaskFn.apply(gulp, arguments);
-    var name = arguments[0];
-    return gulp.tasks[name];
+var originalTaskFn = gulp.task;
+
+gulp.task = function() {
+  originalTaskFn.apply(gulp, arguments);
+  var name = arguments[0];
+  return gulp.tasks[name];
+};
+
+
+var colors = {
+  title: chalk.bold,
+  task: chalk.cyan,
+  option: chalk.green,
+};
+
+module.exports = new function() {
+  var ctx = {
+    hasOption: false,
+    tabSize: 0,
   };
 
-  module.exports = new function() {
-    this.show = _show;
-    this.showTask = _show_task;
-    this.showOption = _show_option;
-    this.getArgv = _get_argv;
-    this.taskNames = _task_names;
+  this.show = function() {
+    var names = parseArgsToTaskNames(arguments);
 
-    // leave old APIs for compatibility
-    this.show_task = _show_task;
-    this.show_option = _show_option;
-    this.get_argv = _get_argv;
+    ctx.tabSize = calcTabSize(names);
+    ctx.hasOption = false;
 
-    var _indentSize = 2;
-    var _tabSize = 0;
-    var _hasOption = false;
+    var buf = bufferConsoleLog(function() {
+      printTaskList.call(ctx, names);
+    });
 
-    function _show(taskname /* ... */) {
-      var args;
-      if (arguments.length == 1 && Array.isArray(arguments[0])) {
-        args = arguments[0];
-      } else if (arguments.length > 0) {
-        args = Array.prototype.slice.call(arguments);
-      } else {
-        args = Object.getOwnPropertyNames(gulp.tasks);
-      }
-
-      _tabSize = _calc_tab_size(args);
-
-      _hasOption = false;
-      var _buf = '';
-      var _console_log_bk = console.log;
-      console.log = function(s) { _buf += (s != null ? s : '') + '\n'; }; 
-
-      _write_task_list(args);
-      _buf = _get_usage() + _buf;
-
-      console.log = _console_log_bk;
-      console.log(_buf);
-    }
-
-    function _show_map(name, map) {
-      var desc = map[''];
-      _show_task(name, desc);
-
-      for (var option in map) {
-        if (option === '') { continue; }
-        _show_option(option, map[option]);
-      }
-    }
-
-    function _show_task(name, desc) {
-      if (desc == null) { desc = ''; }
-      var tab = '';
-      for (var i=name.length; i<_tabSize; i++) { tab += ' '; }
-      console.log('  ' + chalk.cyan(name) + tab + ' : ' + desc);
-    }
-
-    function _show_option(name, desc) {
-      if (desc == null) { desc = ''; }
-      var tab = '';
-      console.log('    ' + chalk.green(name) + tab + ' : ' + desc);
-      _hasOption = true;
-    }
-
-    function _calc_tab_size(tasknames) {
-      var tabSize = 0;
-      for (var i=0; i<tasknames.length; i++) {
-        var name = tasknames[i];
-        if (name == null) { continue; }
-
-        var task = gulp.tasks[name];
-        if (task == null) { continue; }
-        if (typeof(task.help) == 'undefined') { continue; }
-
-        tabSize = Math.max(tabSize, name.length);
-      }
-      return tabSize;
-    }
-
-    function _write_task_list(tasknames) {
-      console.log(chalk.bold('Tasks'));
-
-      for (var i=0; i<tasknames.length; i++) {
-        var name = tasknames[i];
-        if (name == null || name === '') { console.log(); continue; }
-        var task = gulp.tasks[name];
-        if (task == null) continue;
-        switch (typeof(task.help)) {
-        case 'function': task.help(); break;
-        case 'object': _show_map(name, task.help, _tabSize); break;
-        case 'string': _show_task(name, task.help, _tabSize); break;
-        }
-      }
-    }
-
-    function _get_usage() {
-      var str = '\n' + chalk.bold('Usage') + '\n';
-      str += '  gulp ' + chalk.cyan('task');
-      if (_hasOption) {
-        str += ' [ ' + chalk.green('option ...') + ' ]';
-      }
-      str += '\n\n';
-      return str;
-    }
-
-    function _get_argv(opt /* ... */) {
-      var opts = Array.prototype.slice.call(arguments);
-      for (var i=0; i<opts.length; i++) {
-        if (opts[i] in argv) { return argv[opts[i]]; }
-      }
-      return null;
-    }
-
-    function _task_names() {
-      return Object.getOwnPropertyNames(gulp.tasks);
-    }
+    console.log(getUsage(ctx.hasOption) + buf);
   };
 
-}());
+  this.showTask = function() {
+    printTask.apply(ctx, arguments);
+  };
+
+  this.showOption = function() {
+    printOption.apply(ctx, arguments);
+  };
+
+  this.getArgv = getArgv;
+  this.taskNames = taskNames;
+
+  this.show_task = util.deprecate(function() {
+    printTask.apply(ctx, arguments);
+  }, 'show_task() is deprecated.');
+
+  this.show_option = util.deprecate(function() {
+    printOption.apply(ctx, arguments);
+  }, 'show_option() is deprecated.');
+
+  this.get_argv = util.deprecate(getArgv);
+};
+
+function parseArgsToTaskNames(args) {
+  if (args.length === 1 && Array.isArray(args[0])) {
+    return args[0];
+  } else if (args.length > 0) {
+    return Array.prototype.slice.call(args);
+  } else {
+    return taskNames();
+  }
+}
+
+function calcTabSize(names) {
+  var tabSize = 0;
+
+  for (var i = 0, n = names.length; i < n; i++) {
+    var name = names[i];
+    if (!name) {
+      continue;
+    }
+
+    var task = gulp.tasks[name];
+    if (!task || !task.help) {
+      continue;
+    }
+
+    tabSize = Math.max(tabSize, name.length);
+  }
+
+  return tabSize;
+}
+
+function bufferConsoleLog(fn) {
+  var logBk = console.log;
+  var buf = '';
+  console.log = function(str) {
+    buf += (str == null) ? '' : str;
+    buf += '\n';
+  };
+
+  fn();
+
+  console.log = logBk;
+  return buf;
+}
+
+function printTaskList(names) {
+  var ctx = this;
+
+  console.log(colors.title('Tasks'));
+
+  for (var i = 0, n = names.length; i < n; i++) {
+    var name = names[i];
+    if (!name) {
+      console.log();
+      continue;
+    }
+
+    var task = gulp.tasks[name];
+    if (!task || !task.help) {
+      continue;
+    }
+
+    switch (typeof task.help) {
+      case 'function': {
+        task.help();
+        break;
+      }
+      case 'object': {
+        printMap.call(ctx, name, task.help);
+        break;
+      }
+      case 'string': {
+        printTask.call(ctx, name, task.help);
+        break;
+      }
+    }
+  }
+}
+
+function getTab(tabSize, name) {
+  var tab = '';
+  for (var i = 0, n = tabSize - name.length; i < n; i++) {
+    tab += ' ';
+  }
+  return tab;
+}
+
+function printTask(name, desc) {
+  desc = desc || '';
+  var ctx = this;
+  var tab = getTab(ctx.tabSize, name);
+  console.log('  ' + colors.task(name) + tab + ' : ' + desc);
+}
+
+function printOption(name, desc) {
+  desc = desc || '';
+  var ctx = this;
+  console.log('    ' + colors.option(name) + ' : ' + desc);
+  ctx.hasOption = true;
+}
+
+function printMap(name, map, tabSize) {
+  var ctx = this;
+  printTask.call(ctx, name, map['']);
+
+  for (var opt in map) {
+    if (opt) {
+      printOption.call(ctx, opt, map[opt]);
+    }
+  }
+}
+
+function getUsage(hasOption) {
+  var str = '\n' + colors.title('Usage') + '\n';
+  str += '  gulp ' + colors.task('task');
+  if (hasOption) {
+    str += ' [ ' + colors.option('option ...') + ' ]';
+  }
+  str += '\n\n';
+  return str;
+}
+
+function getArgv(/* ...opt */) {
+  var opts = Array.prototype.slice.call(arguments);
+  for (var i = 0, n = opts.length; i < n; i++) {
+    var opt = opts[i];
+    if (opt in argv) {
+      return argv[opt];
+    }
+  }
+  return null;
+}
+
+function taskNames() {
+  return Object.getOwnPropertyNames(gulp.tasks);
+}
+
