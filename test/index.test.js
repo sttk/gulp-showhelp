@@ -5,9 +5,13 @@ var runner = require('gulp-test-tools').gulpRunner;
 var skipLines = require('gulp-test-tools').skipLines;
 var eraseTime = require('gulp-test-tools').eraseTime;
 var eraseLapse = require('gulp-test-tools').eraseLapse;
+var semver = require('semver');
 
 var path = require('path');
 var fs = require('fs');
+
+var deprecationPrefix = semver.lt(process.version, '6.0.0') ? '' :
+  'DeprecationWarning: ';
 
 function expected(filename) {
   var fp = path.resolve(__dirname, 'expected', filename);
@@ -178,7 +182,7 @@ describe('gulp-showhelp', function() {
       function cb(err, stdout, stderr) {
         expect(err).to.equal(null);
         expect(stderr.replace(/\(node:[0-9]+\) /g, '')).to.equal(
-          'DeprecationWarning: show_task() is deprecated.\n');
+          deprecationPrefix + 'show_task() is deprecated.\n');
         stdout = skipLines(stdout, 1);
         stdout = eraseTime(stdout);
         stdout = eraseLapse(stdout);
@@ -198,8 +202,8 @@ describe('gulp-showhelp', function() {
       function cb(err, stdout, stderr) {
         expect(err).to.equal(null);
         expect(stderr.replace(/\(node:[0-9]+\) /g, '')).to.equal(
-          'DeprecationWarning: show_task() is deprecated.\n' +
-          'DeprecationWarning: show_option() is deprecated.\n');
+          deprecationPrefix + 'show_task() is deprecated.\n' +
+          deprecationPrefix + 'show_option() is deprecated.\n');
         stdout = skipLines(stdout, 1);
         stdout = eraseTime(stdout);
         stdout = eraseLapse(stdout);
