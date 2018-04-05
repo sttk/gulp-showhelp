@@ -1,0 +1,27 @@
+Starting 'help2'...
+
+Usage
+  gulp task [ option ... ]
+
+Tasks
+  help2   : shows a help message about specified tasks.
+
+  all     : processes all tasks.
+
+  mkdoc   : make documents.
+  compile : compiles source files.
+    --srcs=(path pattern) : specifys a path pattern of source files.
+    --dest=(file path) : specifys a file path.
+
+  test    : tests modules.
+    --case=(case ID) : specifys a test case ID.
+
+    Test case IDs:
+        ID  :        description
+      ------:-------------------------------------
+      case1 : .... 
+      case2 : .... 
+      case3 : .... 
+
+
+Finished 'help2' after ?

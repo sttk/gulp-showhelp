@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var ghelp = require('../../');
+var ghelp = require('../../..');
 
 gulp.task('help1', function() {
   ghelp.show('help1');

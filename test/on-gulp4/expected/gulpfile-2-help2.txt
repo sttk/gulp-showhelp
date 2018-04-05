@@ -1,0 +1,10 @@
+Starting 'help2'...
+
+Usage
+  gulp task [ option ... ]
+
+Tasks
+  help2 : 
+    option : 
+
+Finished 'help2' after ?
