@@ -13,7 +13,22 @@ node_js:
   - "8"
   - "9"
 
-after_success: 'npm run coveralls'
+env:
+  - "GULP_VERSION=3"
+  - "GULP_VERSION=4"
+
+before_script:
+  - if [ "${GULP_VERSION}" != "3" ]; then
+      npm uninstall --no-save gulp;
+      npm install --no-save gulp@${GULP_VERSION};
+    fi
+
+script: npm run test-on-gulp${GULP_VERSION}
+
+after_success:
+  - if [ $(echo "${TRAVIS_NODE_VERSION}" | cut -d'.' -f1) -ge 4 ]; then
+      npm run coveralls${GULP_VERSION};
+    fi
 
 os:
   - linux

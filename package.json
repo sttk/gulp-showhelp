@@ -8,9 +8,13 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha -t 5000",
-    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
-    "coveralls": "nyc --reporter=text-lcov npm test | coveralls"
+    "test": "npm run test-on-gulp3",
+    "test-on-gulp3": "mocha -t 5000 test/on-gulp3",
+    "test-on-gulp4": "mocha -t 5000 test/on-gulp4",
+    "cover-on-gulp3": "nyc --reporter=lcov --reporter=text-summary npm run test-on-gulp3",
+    "cover-on-gulp4": "nyc --reporter=lcov --reporter=text-summary npm run test-on-gulp4",
+    "coveralls3": "nyc --reporter=text-lcov npm run test-on-gulp3 | coveralls",
+    "coveralls4": "nyc --reporter=text-lcov npm run test-on-gulp4 | coveralls"
   },
   "repository": {
     "type": "git",

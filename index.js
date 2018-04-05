@@ -10,7 +10,7 @@ var originalTaskFn = gulp.task;
 gulp.task = function() {
   originalTaskFn.apply(gulp, arguments);
   var name = arguments[0];
-  return gulp.tasks[name];
+  return getTask(name);
 };
 
 
@@ -80,7 +80,7 @@ function calcTabSize(names) {
       continue;
     }
 
-    var task = gulp.tasks[name];
+    var task = getTask(name);
     if (!task || !task.help) {
       continue;
     }
@@ -117,7 +117,7 @@ function printTaskList(names) {
       continue;
     }
 
-    var task = gulp.tasks[name];
+    var task = getTask(name);
     if (!task || !task.help) {
       continue;
     }
@@ -193,7 +193,21 @@ function getArgv(/* ...opt */) {
   return null;
 }
 
+function getTask(name) {
+  /* istanbul ignore next */
+  if (gulp.tasks) { // v3
+    return gulp.tasks[name];
+  } else { // v4
+    return gulp._getTask(name);
+  }
+}
+
 function taskNames() {
-  return Object.getOwnPropertyNames(gulp.tasks);
+  /* istanbul ignore next */
+  if (gulp.tasks) { // v3
+    return Object.getOwnPropertyNames(gulp.tasks);
+  } else { // v4
+    return gulp.tree().nodes;
+  }
 }
 
