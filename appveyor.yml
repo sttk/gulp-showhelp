@@ -3,19 +3,41 @@
 
 environment:
   matrix:
-    # node.js
+    # node.js and gulp v3
     - nodejs_version: "9"
+      gulp_version: "3"
     - nodejs_version: "8"
+      gulp_version: "3"
     - nodejs_version: "7"
+      gulp_version: "3"
     - nodejs_version: "6"
+      gulp_version: "3"
     - nodejs_version: "5"
+      gulp_version: "3"
     - nodejs_version: "4"
+      gulp_version: "3"
     - nodejs_version: "0.12"
+      gulp_version: "3"
     - nodejs_version: "0.10"
-  matrix:
-    # gulp
-    - gulp_version: "3"
-    - gulp_version: "4"
+      gulp_version: "3"
+
+    # node.js and gulp v4
+    - nodejs_version: "9"
+      gulp_version: "4"
+    - nodejs_version: "8"
+      gulp_version: "4"
+    - nodejs_version: "7"
+      gulp_version: "4"
+    - nodejs_version: "6"
+      gulp_version: "4"
+    - nodejs_version: "5"
+      gulp_version: "4"
+    - nodejs_version: "4"
+      gulp_version: "4"
+    - nodejs_version: "0.12"
+      gulp_version: "4"
+    - nodejs_version: "0.10"
+      gulp_version: "4"
 
 install:
   - ps: Install-Product node $env:nodejs_version

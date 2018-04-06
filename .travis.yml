@@ -18,9 +18,9 @@ env:
   - "GULP_VERSION=4"
 
 before_script:
-  - if [ "${GULP_VERSION}" != "3" ] then
-      npm uninstall --no-save gulp
-      npm install --no-save gulp@${GULP_VERSION}
+  - if [ "${GULP_VERSION}" != "3" ]; then
+      npm uninstall --no-save gulp;
+      npm install --no-save gulp@${GULP_VERSION};
     fi
 
 script: npm run test-on-gulp${GULP_VERSION}
