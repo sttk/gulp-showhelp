@@ -27,7 +27,7 @@ script: npm run test-on-gulp${GULP_VERSION}
 
 after_success:
   - if [ $(echo "${TRAVIS_HOME_VERSION}" | cut -d'.' -f1) -ge 4 ]; then
-      npm run coveralls
+      npm run coveralls;
     fi
 
 os:
