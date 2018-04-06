@@ -260,7 +260,7 @@ See the file LICENSE in this distribution for more details.
 
 
 [repo-url]: https://github.com/sttk/gulp-showhelp/
-[npm-img]: https://img.shields.io/badge/npm-v1.1.0-blue.svg
+[npm-img]: https://img.shields.io/badge/npm-v1.2.0-blue.svg
 [npm-url]: https://www.npmjs.org/package/gulp-showhelp/
 [mit-img]: https://img.shields.io/badge/license-MIT-green.svg
 [mit-url]: https://opensource.org/licenses.MIT
