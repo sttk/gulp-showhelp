@@ -48,7 +48,6 @@ install:
 test_script:
   - node --version
   - npm --version
-  - gulp --version
   - npm run test-on-gulp%gulp_version%
 
 build: off
