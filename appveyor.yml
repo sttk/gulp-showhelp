@@ -41,15 +41,15 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install
-  - npm uninstall --no-save gulp
-  - npm install --no-save gulp@$env:gulp_version
+  - cmd: npm install
+  - cmd: npm uninstall --no-save gulp
+  - cmd: npm install --no-save gulp@%gulp_version%
 
 test_script:
   - node --version
   - npm --version
   - gulp --version
-  - cmd: npm run test-on-gulp$env:gulp_version
+  - cmd: npm run test-on-gulp%gulp_version%
 
 build: off
 
