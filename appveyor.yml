@@ -43,13 +43,13 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
   - npm uninstall --no-save gulp
-  - npm install --no-save gulp@${gulp_version}
+  - npm install --no-save gulp@$(gulp_version)
 
 test_script:
   - node --version
   - npm --version
   - gulp --version
-  - npm run test-on-gulp${gulp_version}
+  - npm run test-on-gulp$(gulp_version)
 
 build: off
 
